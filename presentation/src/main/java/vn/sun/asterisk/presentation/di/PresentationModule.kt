@@ -2,9 +2,7 @@ package vn.sun.asterisk.presentation.di
 
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
-import vn.sun.asterisk.presentation.viewmodel.CategoryViewModel
-import vn.sun.asterisk.presentation.viewmodel.MainViewModel
-import vn.sun.asterisk.presentation.viewmodel.StudyViewModel
+import vn.sun.asterisk.presentation.viewmodel.*
 
 val presentationModule = module {
     viewModel {
@@ -17,5 +15,13 @@ val presentationModule = module {
 
     viewModel {
         StudyViewModel()
+    }
+
+    viewModel {
+        HomeViewModel()
+    }
+
+    viewModel {
+        TestSkillsViewModel()
     }
 }

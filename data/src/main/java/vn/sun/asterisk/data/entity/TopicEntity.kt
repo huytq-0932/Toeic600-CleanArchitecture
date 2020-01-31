@@ -15,16 +15,6 @@ data class TopicEntity(
     val remind: Int = 0
 ) : DataEntity(), MappableData<Topic> {
 
-    override fun map() = Topic(
-        id = id,
-        name = name,
-        imageUrl = imageUrl,
-        category = category,
-        color = color,
-        lastTime = lastTime,
-        total = total,
-        master = master,
-        newWord = newWord,
-        remind = remind
-    )
+    override fun map() =
+        Topic(id, name, imageUrl, category, color, lastTime, total, master, newWord, remind)
 }

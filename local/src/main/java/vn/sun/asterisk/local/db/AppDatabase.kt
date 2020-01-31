@@ -19,6 +19,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun wordDao(): WordDao
     abstract fun topicDao(): TopicDao
+    abstract fun partDao(): PartDao
 
     companion object {
         fun getDatabase(context: Context): AppDatabase =

@@ -29,9 +29,4 @@ abstract class BaseActivity<VM : BaseViewModel> : AppCompatActivity(), KoinCompo
     protected abstract fun initComponents()
 
     protected abstract fun observeData()
-
-    protected fun replaceFragment(id: Int, fragment: Fragment, addToBackStack: Boolean) =
-        supportFragmentManager.beginTransaction().replace(id, fragment).apply {
-            if (addToBackStack) addToBackStack(null)
-        }.commit()
 }

@@ -11,8 +11,10 @@ import kotlin.coroutines.CoroutineContext
 abstract class BaseViewModel : ViewModel(), CoroutineScope, KoinComponent {
 
     protected val _messageToast = MutableLiveData<String>()
-
     val messageToast: LiveData<String> get() = _messageToast
+
+    protected val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> get() = _isLoading
 
     override val coroutineContext: CoroutineContext get() = Dispatchers.Main
 

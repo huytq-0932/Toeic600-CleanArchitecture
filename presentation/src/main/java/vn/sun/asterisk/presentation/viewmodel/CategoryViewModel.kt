@@ -9,10 +9,13 @@ class CategoryViewModel(
 ) : BaseViewModel() {
 
     val categories = liveData {
+        _isLoading.value = true
         try {
             emit(getCategoriesUseCase.execute())
+            _isLoading.value = false
         } catch (e: Exception) {
             emit(emptyList())
+            _isLoading.value = false
         }
     }
 }

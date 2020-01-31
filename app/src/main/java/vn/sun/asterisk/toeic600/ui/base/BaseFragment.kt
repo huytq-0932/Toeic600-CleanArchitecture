@@ -40,8 +40,18 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment(), KoinComponent {
         viewModel.create()
     }
 
-    protected open fun observeData() {
-        viewModel.messageToast.observe(viewLifecycleOwner, Observer(::toast))
+    protected open fun observeData() = with(viewModel) {
+        messageToast.observe(viewLifecycleOwner, Observer(::toast))
+
+        isLoading.observe(viewLifecycleOwner, Observer {
+            if (it == false) hideLoading() else showLoading()
+        })
+    }
+
+    protected open fun showLoading() {
+    }
+
+    protected open fun hideLoading() {
     }
 
     private fun toast(message: String) {

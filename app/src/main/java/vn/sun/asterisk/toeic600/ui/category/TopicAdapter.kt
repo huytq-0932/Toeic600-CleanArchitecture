@@ -10,10 +10,8 @@ import vn.sun.asterisk.toeic600.ui.base.BaseRecyclerAdapter
 import vn.sun.asterisk.toeic600.ui.base.BaseViewHolder
 
 class TopicAdapter(
-    callback: TopicDiffUtilCallback
-) : BaseRecyclerAdapter<Topic, TopicAdapter.TopicViewHolder>(callback) {
-
-    var onItemClick: (Topic) -> Unit = {}
+    private val onItemClick: (Topic) -> Unit
+) : BaseRecyclerAdapter<Topic, TopicViewHolder>(TopicDiffUtilCallback()) {
 
     override fun getItemLayoutResource(viewType: Int): Int = R.layout.item_topic
 
@@ -22,32 +20,30 @@ class TopicAdapter(
         onItemClick = onItemClick
     )
 
-    class TopicViewHolder(
-        itemView: View,
-        private val onItemClick: (Topic) -> Unit
-    ) : BaseViewHolder<Topic>(itemView) {
+    class TopicDiffUtilCallback : DiffUtil.ItemCallback<Topic>() {
+        override fun areItemsTheSame(oldItem: Topic, newItem: Topic) = oldItem === newItem
 
-        override fun onBindData(itemData: Topic) = with(itemView) {
-            super.onBindData(itemData)
+        override fun areContentsTheSame(oldItem: Topic, newItem: Topic) = oldItem == newItem
+    }
+}
 
-            progressTopic.apply {
-                max = itemData.total
-                progress = itemData.master
-                secondaryProgress = itemData.total - itemData.newWord
-            }
+class TopicViewHolder(
+    itemView: View,
+    private val onItemClick: (Topic) -> Unit
+) : BaseViewHolder<Topic>(itemView) {
 
-            textNameTopic?.text = itemData.name
-            textLastTime?.text = itemData.lastTime ?: context.getString(R.string.level_never)
+    override fun onBindData(itemData: Topic) = with(itemView) {
+        super.onBindData(itemData)
+
+        progressTopic.apply {
+            max = itemData.total
+            progress = itemData.master
+            secondaryProgress = itemData.total - itemData.newWord
         }
 
-        override fun onItemClickListener(itemData: Topic) = onItemClick(itemData)
+        textNameTopic?.text = itemData.name
+        textLastTime?.text = itemData.lastTime ?: context.getString(R.string.level_never)
     }
 
-    class TopicDiffUtilCallback : DiffUtil.ItemCallback<Topic>() {
-        override fun areItemsTheSame(oldItem: Topic, newItem: Topic): Boolean =
-            oldItem === newItem
-
-        override fun areContentsTheSame(oldItem: Topic, newItem: Topic): Boolean =
-            oldItem == newItem
-    }
+    override fun onItemClickListener(itemData: Topic) = onItemClick(itemData)
 }

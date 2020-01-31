@@ -5,7 +5,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import kotlinx.android.parcel.Parcelize
+import vn.sun.asterisk.common.WordLevel
 import vn.sun.asterisk.local.DatabaseConfig
 
 @Entity(
@@ -29,11 +29,17 @@ data class LocalWord(
     @ColumnInfo(name = FIELD_IMAGE_URL) val imageUrl: String,
     @ColumnInfo(name = FIELD_EXAMPLE) val example: String,
     @ColumnInfo(name = FIELD_EXAMPLE_TRANSLATION) val exampleTranslate: String? = null,
-    @ColumnInfo(name = FIELD_TOPIC_ID) val topicId: Int,
+    @ColumnInfo(name = FIELD_TOPIC_ID, index = true) val topicId: Int,
     @ColumnInfo(name = FIELD_LEVEL) var level: Int = 0
 ) {
 
     val soundUrl get() = String.format(DatabaseConfig.SOUND_URL_FORMAT, origin.replace(' ', '_'))
+
+    fun isMaster(): Boolean = level == WordLevel.MASTER.level
+
+    fun isNever(): Boolean = level == WordLevel.NEVER.level
+
+    fun isReviewing(): Boolean = level in WordLevel.NEVER.level..WordLevel.MASTER.level
 
     companion object {
         const val TABLE_NAME = "tbl_word"

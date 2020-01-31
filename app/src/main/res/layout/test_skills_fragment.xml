@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.study.StudyFragment">
+    tools:context=".ui.test.skills.TestSkillsFragment">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/title_study" />
+        android:text="Hello" />
 </FrameLayout>

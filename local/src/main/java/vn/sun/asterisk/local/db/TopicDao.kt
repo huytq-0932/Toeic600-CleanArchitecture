@@ -13,6 +13,9 @@ interface TopicDao {
     @Query("SELECT DISTINCT category FROM ${LocalTopic.TABLE_NAME}")
     suspend fun getCategoryNames(): List<String>
 
+    @Query("SELECT * FROM ${LocalTopic.TABLE_NAME} WHERE id = :id")
+    suspend fun getTopicById(id: Int): LocalTopic
+
     @Update
     suspend fun updateTopic(topic: LocalTopic)
 }

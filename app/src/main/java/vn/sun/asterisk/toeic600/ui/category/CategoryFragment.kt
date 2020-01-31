@@ -30,4 +30,12 @@ class CategoryFragment : BaseFragment<CategoryViewModel>() {
         super.observeData()
         categories.observe(viewLifecycleOwner, Observer(categoryAdapter::submitList))
     }
+
+    override fun showLoading() {
+        categoryProgressBar?.show()
+    }
+
+    override fun hideLoading() {
+        categoryProgressBar?.hide()
+    }
 }
